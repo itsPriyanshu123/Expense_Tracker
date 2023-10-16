@@ -1,8 +1,11 @@
+intial code
 import React, { useState } from 'react';
-import { Modal, Button, Checkbox, Typography } from '@mui/material';
+import { Button, Checkbox, Modal, TextField, Typography } from '@mui/material';
 
-const CommentComponent = () => {
+const WebView = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -12,17 +15,55 @@ const CommentComponent = () => {
     setModalOpen(false);
   };
 
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
   return (
-    <div className="p-4 border border-gray-300 rounded-lg mb-4">
-      <div className="flex items-center">
-        <Checkbox />
-        <Typography variant="body1" className="ml-2">
-          Paragraph Text
-        </Typography>
+    <div className="p-4">
+      <div className="flex justify-between items-center">
+        <img src="left-logo.png" alt="Left Logo" className="w-16 h-16" />
+        <img src="right-logo.png" alt="Right Logo" className="w-16 h-16" />
       </div>
-      <div className="mt-2">
-        <Button variant="outlined" onClick={handleOpenModal}>
-          More Info
+      <div>
+        <Typography variant="h6" className="my-4">
+          Web View Content
+        </Typography>
+        <p>Some text goes here.</p>
+      </div>
+      <div className="mt-4">
+        <TextField
+          label="Adhar Number / VID Number"
+          variant="outlined"
+          fullWidth
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="mt-4">
+        <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
+        <p>Paragraph 1</p>
+        <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
+        <p>Paragraph 2</p>
+        <Checkbox checked={isChecked} onChange={handleCheckboxChange} />
+        <p>
+          Paragraph 3{' '}
+          <span className="text-blue-600 cursor-pointer" onClick={handleOpenModal}>
+            More Info
+          </span>
+        </p>
+      </div>
+      <div className="mt-4">
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={!isChecked || (inputValue.length !== 12 && inputValue.length !== 16)}
+        >
+          Submit
         </Button>
       </div>
       <MoreInfoModal open={modalOpen} onClose={handleCloseModal} />
@@ -30,10 +71,10 @@ const CommentComponent = () => {
   );
 };
 
-export default CommentComponent;
-modalll 
+export default WebView;
+modal code
 import React from 'react';
-import { Modal, Typography, Button } from '@mui/material';
+import { Button, Modal, Typography } from '@mui/material';
 
 const MoreInfoModal = ({ open, onClose }) => {
   return (
