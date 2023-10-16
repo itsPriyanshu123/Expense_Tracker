@@ -1,58 +1,58 @@
-# 
-import React from 'react';
+import React, { useState } from 'react';
+import { Modal, Button, Checkbox, Typography } from '@mui/material';
 
 const CommentComponent = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      {/* Parent Div */}
-      <div className="bg-gray-200 p-4 rounded-lg w-full md:w-96 shadow-md text-center">
-        {/* First Child Div */}
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            {/* First Logo (left) */}
-            <img src="left-logo.png" alt="Left Logo" className="w-8 h-8" />
-          </div>
-          <div>
-            {/* Second Logo (right) */}
-            <img src="right-logo.png" alt="Right Logo" className="w-8 h-8" />
-          </div>
-        </div>
-        {/* Second Child Div */}
-        <div className="mb-4">
-          Some Text Goes Here
-        </div>
-        {/* Third Child Div with Comment Input */}
-        <div className="mb-4">
-          <label htmlFor="comment" className="block mb-1">Comment</label>
-          <input
-            type="text"
-            id="comment"
-            placeholder="Enter your comment"
-            className="border-b border-gray-400 p-2 rounded-t-md w-full focus:outline-none"
-          />
-        </div>
-        {/* Fourth Child Div with Three Paragraphs and Checkboxes */}
-        <div className="mb-4">
-          <div className="flex items-center mb-2">
-            <input type="checkbox" id="checkbox1" className="mr-2" />
-            <p>Paragraph 1</p>
-          </div>
-          <div className="flex items-center mb-2">
-            <input type="checkbox" id="checkbox2" className="mr-2" />
-            <p>Paragraph 2</p>
-          </div>
-          <div className="flex items-center">
-            <input type="checkbox" id="checkbox3" className="mr-2" />
-            <p>Paragraph 3</p>
-          </div>
-        </div>
-        {/* Fifth Child Div with Proceed Button */}
-        <div>
-          <button className="bg-blue-500 text-white py-2 px-4 rounded-md w-full focus:outline-none">Proceed</button>
-        </div>
+    <div className="p-4 border border-gray-300 rounded-lg mb-4">
+      <div className="flex items-center">
+        <Checkbox />
+        <Typography variant="body1" className="ml-2">
+          Paragraph Text
+        </Typography>
       </div>
+      <div className="mt-2">
+        <Button variant="outlined" onClick={handleOpenModal}>
+          More Info
+        </Button>
+      </div>
+      <MoreInfoModal open={modalOpen} onClose={handleCloseModal} />
     </div>
   );
 };
 
 export default CommentComponent;
+modalll 
+import React from 'react';
+import { Modal, Typography, Button } from '@mui/material';
+
+const MoreInfoModal = ({ open, onClose }) => {
+  return (
+    <Modal open={open} onClose={onClose}>
+      <div className="p-4 bg-white rounded-lg">
+        <Typography variant="h6" className="mb-4">
+          More Info
+        </Typography>
+        <Typography variant="body1">
+          Additional information goes here...
+        </Typography>
+        <div className="mt-4 text-center">
+          <Button variant="contained" onClick={onClose}>
+            Close
+          </Button>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
+export default MoreInfoModal;
